@@ -1,14 +1,24 @@
+// eslint-disable-next-line no-shadow
+export enum HEAP_TYPE {
+  MIN,
+  MAX
+}
+
 export class Heap {
-  constructor(items: number[] = []) {
+  constructor(items: number[], type: HEAP_TYPE = HEAP_TYPE.MAX) {
     this.heap = items;
     this.heapSize = items.length;
+    this.heapType = type;
+    this.heap.length = items.length;
   }
 
-  private heap: number[] = [];
+  private heap: number[];
+
+  private heapType: HEAP_TYPE;
 
   private heapSize: number;
 
-  public readonly length = this.heap.length;
+  public readonly length;
 
   // Swaps elements i and j
   private swap(i: number, j: number): void {
@@ -19,6 +29,7 @@ export class Heap {
 
   public getArray = () => this.heap;
 
+  // Since a heap is a complete tree the longest branch should always be the furthest left
   public getHeight(i: number = 0): number {
     const leftIndex = Heap.left(i);
     const left = this.heap[leftIndex];
@@ -42,32 +53,37 @@ export class Heap {
     return 2 * i + 2;
   }
 
-  public maxHeapify(i: number): void {
+  private isMax = (child: number, current: number) => this.heap[child] > this.heap[current];
+
+  private isMin = (child: number, current: number) => this.heap[child] < this.heap[current];
+
+  public heapify(i: number): void {
     const l = Heap.left(i);
     const r = Heap.right(i);
+    const comparison = this.heapType === HEAP_TYPE.MAX ? this.isMax : this.isMin;
 
     let largest = i;
 
-    if (l < this.heapSize && this.heap[l] > this.heap[i]) {
+    if (l < this.heapSize && comparison(l, i)) {
       largest = l;
     }
 
-    if (r < this.heapSize && this.heap[r] > this.heap[largest]) {
+    if (r < this.heapSize && comparison(r, largest)) {
       largest = r;
     }
 
     if (largest !== i) {
       this.swap(i, largest);
-      this.maxHeapify(largest);
+      this.heapify(largest);
     }
   }
 
-  public buildMaxHeap() {
+  public buildHeap() {
     const start = Math.floor(this.heap.length / 2);
     this.heapSize = this.heap.length;
 
     for (let i = start; i >= 0; i--) {
-      this.maxHeapify(i);
+      this.heapify(i);
     }
   }
 
@@ -75,7 +91,7 @@ export class Heap {
     for (let i = this.heap.length - 1; i > 0; i--) {
       this.swap(0, i);
       this.heapSize--;
-      this.maxHeapify(0);
+      this.heapify(0);
     }
   }
 }

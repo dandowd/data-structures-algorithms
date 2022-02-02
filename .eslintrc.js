@@ -21,6 +21,8 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
     'no-unused-vars': 'off', // disabled in favor of TS warning
+    'prefer-const': 'warning',
+    'semi': [2, 'always'],
   },
   settings: {
     'import/parsers': {

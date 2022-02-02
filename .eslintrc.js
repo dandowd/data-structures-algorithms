@@ -24,6 +24,8 @@ module.exports = {
     'max-classes-per-file': 'off',
     'no-use-before-define': 'off',
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    'prefer-const': 'warning',
+    'semi': [2, 'always'],
   },
   settings: {
     'import/parsers': {

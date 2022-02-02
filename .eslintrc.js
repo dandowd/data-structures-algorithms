@@ -21,6 +21,9 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
     'no-unused-vars': 'off', // disabled in favor of TS warning
+    'max-classes-per-file': 'off',
+    'no-use-before-define': 'off',
+    'no-underscore-dangle': ['error', { allowAfterThis: true }],
   },
   settings: {
     'import/parsers': {

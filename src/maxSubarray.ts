@@ -1,4 +1,4 @@
-function findMaxCrossingSubarray(a: number[], low: number, mid: number, high: number) {
+export function findMaxCrossingSubarray(a: number[], low: number, mid: number, high: number) {
   let leftSum = Number.MIN_SAFE_INTEGER;
   let rightSum = Number.MIN_SAFE_INTEGER;
   let maxLeft = 0;
@@ -16,7 +16,7 @@ function findMaxCrossingSubarray(a: number[], low: number, mid: number, high: nu
 
   sum = 0;
 
-  for (let j = mid + 1; j < high; j++) {
+  for (let j = mid + 1; j <= high; j++) {
     sum += a[j];
 
     if (sum > rightSum) {
@@ -25,15 +25,15 @@ function findMaxCrossingSubarray(a: number[], low: number, mid: number, high: nu
     }
   }
 
-  return [maxLeft, maxRight, leftSum + rightSum]
+  return [maxLeft, maxRight, leftSum + rightSum];
 }
 
-function findMaxSubarray(a: number[], low: number, high: number) {
+export function findMaxSubarray(a: number[], low: number, high: number) {
   if (high === low) {
     return [low, high, a[low]];
   }
 
-  const mid = Math.floor((low + high) / 2)
+  const mid = Math.floor((low + high) / 2);
   const [leftLow, leftHigh, leftSum] = findMaxSubarray(a, low, mid);
   const [rightLow, rightHigh, rightSum] = findMaxSubarray(a, mid + 1, high);
   const [crossLow, crossHigh, crossSum] = findMaxCrossingSubarray(a, low, mid, high);
@@ -42,9 +42,9 @@ function findMaxSubarray(a: number[], low: number, high: number) {
     return [leftLow, leftHigh, leftSum];
   }
 
-  if (rightSum >- leftSum && rightSum >= crossSum) {
-    return [rightLow, rightHigh, rightSum]
+  if (rightSum > -leftSum && rightSum >= crossSum) {
+    return [rightLow, rightHigh, rightSum];
   }
 
-  return [crossLow, crossHigh, crossSum]
+  return [crossLow, crossHigh, crossSum];
 }

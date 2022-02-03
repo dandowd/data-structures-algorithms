@@ -1,4 +1,9 @@
-export function findMaxCrossingSubarray(a: number[], low: number, mid: number, high: number) {
+export function findMaxCrossingSubarray(
+  a: number[],
+  low: number,
+  mid: number,
+  high: number,
+): [number, number, number] {
   let leftSum = Number.MIN_SAFE_INTEGER;
   let rightSum = Number.MIN_SAFE_INTEGER;
   let maxLeft = 0;
@@ -28,7 +33,8 @@ export function findMaxCrossingSubarray(a: number[], low: number, mid: number, h
   return [maxLeft, maxRight, leftSum + rightSum];
 }
 
-export function findMaxSubarray(a: number[], low: number, high: number) {
+export function findMaxSubarray(a: number[], low: number, high: number): [number, number, number] {
+  // base case: only one element
   if (high === low) {
     return [low, high, a[low]];
   }
@@ -42,7 +48,7 @@ export function findMaxSubarray(a: number[], low: number, high: number) {
     return [leftLow, leftHigh, leftSum];
   }
 
-  if (rightSum > -leftSum && rightSum >= crossSum) {
+  if (rightSum >= leftSum && rightSum >= crossSum) {
     return [rightLow, rightHigh, rightSum];
   }
 

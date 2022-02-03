@@ -5,8 +5,8 @@ export function cutRod(prices: number[], length: number): number {
   }
 
   let max = -Infinity;
-  for (let i = 0; i < length; i++) {
-    max = Math.max(max, prices[i] + cutRod(prices, length - i - 1));
+  for (let i = 1; i <= length; i++) {
+    max = Math.max(max, prices[i] + cutRod(prices, length - i));
   }
 
   return max;

@@ -4,8 +4,8 @@ export function findMaxCrossingSubarray(
   mid: number,
   high: number,
 ): [number, number, number] {
-  let leftSum = Number.MIN_SAFE_INTEGER;
-  let rightSum = Number.MIN_SAFE_INTEGER;
+  let leftSum = -Infinity;
+  let rightSum = -Infinity;
   let maxLeft = 0;
   let maxRight = 0;
   let sum = 0;
